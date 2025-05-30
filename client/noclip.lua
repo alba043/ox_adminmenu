@@ -1,45 +1,53 @@
 local speed = 0.1
 local up_down_speed = 0.1
 
+-- Functie voor het weergeven van instructies op het scherm tijdens NoClip
 function InfoNoClip()
 	Scale = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS");
     while not HasScaleformMovieLoaded(Scale) do
         Wait(0)
 	end
 
+    -- Maak alle vorige instructies leeg
     BeginScaleformMovieMethod(Scale, "CLEAR_ALL");
     EndScaleformMovieMethod();
 
+    -- Toon huidige snelheid
     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
     ScaleformMovieMethodAddParamInt(0);
     PushScaleformMovieMethodParameterString("~INPUT_SPRINT~");
-    PushScaleformMovieMethodParameterString("Current speed: "..speed);
+    PushScaleformMovieMethodParameterString("Huidige snelheid: "..speed);
     EndScaleformMovieMethod();
 
+    -- Toon links/rechts beweging instructie
     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
     ScaleformMovieMethodAddParamInt(1);
     PushScaleformMovieMethodParameterString("~INPUT_MOVE_LR~");
-    PushScaleformMovieMethodParameterString("Right/Left");
+    PushScaleformMovieMethodParameterString("Rechts/Links");
     EndScaleformMovieMethod();
 
+    -- Toon vooruit/achteruit beweging instructie
     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
     ScaleformMovieMethodAddParamInt(2);
     PushScaleformMovieMethodParameterString("~INPUT_MOVE_UD~");
-    PushScaleformMovieMethodParameterString("Back/Forward");
+    PushScaleformMovieMethodParameterString("Achteruit/Vooruit");
     EndScaleformMovieMethod();
 
+    -- Toon omlaag beweging instructie
     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
     ScaleformMovieMethodAddParamInt(3);
     PushScaleformMovieMethodParameterString("~INPUT_CELLPHONE_DOWN~");
-    PushScaleformMovieMethodParameterString("Go down");
+    PushScaleformMovieMethodParameterString("Omlaag gaan");
     EndScaleformMovieMethod();
 
+    -- Toon omhoog beweging instructie
     BeginScaleformMovieMethod(Scale, "SET_DATA_SLOT");
     ScaleformMovieMethodAddParamInt(4);
     PushScaleformMovieMethodParameterString("~INPUT_CELLPHONE_UP~");
-    PushScaleformMovieMethodParameterString("Go up");
+    PushScaleformMovieMethodParameterString("Omhoog gaan");
     EndScaleformMovieMethod();
 
+    -- Teken alle instructies op het scherm
     BeginScaleformMovieMethod(Scale, "DRAW_INSTRUCTIONAL_BUTTONS");
     ScaleformMovieMethodAddParamInt(0);
     EndScaleformMovieMethod();
@@ -48,7 +56,7 @@ function InfoNoClip()
 end
 
 
-
+-- Hoofdfunctie voor NoClip modus
 NoClip = function()
 
     inNoclip = true
@@ -58,27 +66,33 @@ NoClip = function()
             Wait(1)
             local ped = cache.ped
             local targetVeh = GetVehiclePedIsUsing(ped)
+            -- Als speler in een voertuig zit, pas NoClip toe op het voertuig
             if cache.vehicle and DoesEntityExist(cache.vehicle) then
                 ped = targetVeh
             end
 
             if inNoclip then
+                -- Toon instructies op het scherm
                 InfoNoClip()
 
+                -- Maak speler/voertuig onkwetsbaar en onzichtbaar
                 SetEntityInvincible(ped, true)
                 SetEntityVisible(ped, false, false)
 
+                -- Zorg ervoor dat de speler lokaal zichtbaar blijft
                 SetEntityLocallyVisible(ped)
                 SetEntityAlpha(ped, 100, false)
                 SetBlockingOfNonTemporaryEvents(ped, true)
                 ForcePedMotionState(ped, -1871534317, 0, 0, 0)
 
                 SetLocalPlayerVisibleLocally(ped)
+                -- Schakel botsingen uit
                 SetEntityCollision(ped, false, false)
                 
+                -- Zet de positie van de speler/voertuig
                 SetEntityCoordsNoOffset(ped, noclip_pos.x, noclip_pos.y, noclip_pos.z, true, true, true)
 
-
+                -- Snelheidscontrole met Shift-toets
                 if IsControlJustPressed(1, 21) then
                     if speed == 0.1 then
                         speed = 0.2
@@ -107,24 +121,41 @@ NoClip = function()
                     end
                 end
 
+                -- Vooruit beweging (W-toets)
+                if IsControlPressed(1, 32) then
+                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, speed, 0.0)
+                end
+                
+                -- Achteruit beweging (S-toets)
                 if IsControlPressed(1, 8) then
                     noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, -speed, 0.0)
                 end
-
-                if IsControlPressed(1, 172) and IsControlPressed(1, 32) then 
-                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, speed, up_down_speed)
-                elseif IsControlPressed(1, 172) then 
-                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, up_down_speed)
-                elseif IsControlPressed(1, 32) then 
-                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, speed, 0.0)
+                
+                -- Links beweging (A-toets)
+                if IsControlPressed(1, 34) then
+                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, -speed, 0.0, 0.0)
+                end
+                
+                -- Rechts beweging (D-toets)
+                if IsControlPressed(1, 9) then
+                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, speed, 0.0, 0.0)
                 end
 
-                if IsControlPressed(1, 173) and IsControlPressed(1, 32) then 
-                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, speed, -up_down_speed)
-                elseif IsControlPressed(1, 173) then 
+                -- Omhoog beweging (Pijl omhoog)
+                if IsControlPressed(1, 172) then
+                    noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, up_down_speed)
+                end
+                
+                -- Omlaag beweging (Pijl omlaag)
+                if IsControlPressed(1, 173) then
                     noclip_pos = GetOffsetFromEntityInWorldCoords(ped, 0.0, 0.0, -up_down_speed)
                 end
+
+                -- Pas de richting aan op basis van de camera
+                local heading = GetGameplayCamRelativeHeading()
+                SetEntityHeading(ped, -heading)
             else
+                -- Herstel normale speler/voertuig eigenschappen bij het verlaten van NoClip
                 SetEntityInvincible(ped, false)
                 ResetEntityAlpha(ped)
                 SetEntityVisible(ped, true, false)
@@ -137,19 +168,24 @@ NoClip = function()
     end)
 end
 
-RegisterKeyMapping(Config.NoClipCommand,"SVG noclip","keyboard","HOME")
+-- Initialiseer noclip_pos variabele om nil fouten te voorkomen
+noclip_pos = vector3(0.0, 0.0, 0.0)
 
+-- Registreer toetsenbinding voor NoClip, aangepast van HOME naar F9
+RegisterKeyMapping(Config.NoClipCommand,"SVG noclip","keyboard","F9")
+
+-- Registreer commando voor NoClip
 RegisterCommand(Config.NoClipCommand, function()
     lib.callback('checkgroup', false, function(staff, tipo)
         if staff then
             if not inNoclip then
+                -- Sla huidige positie op en activeer NoClip
+                noclip_pos = GetEntityCoords(cache.ped, false)
                 NoClip()
-                local pp = cache.ped
-                noclip_pos = GetEntityCoords(pp, false)
             else
+                -- Deactiveer NoClip
                 inNoclip = false
             end
         end
     end)
 end)
-
