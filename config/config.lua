@@ -7,11 +7,11 @@ Config.Groups = {
     'owner',
     'hogeraad',
     'management',
-    'admin',
+    'administrator',
     'moderator'
 }
 Config.MaxGroups = {
-    'admin',
+    'hogeraad',
     'owner',   
 }
 
@@ -19,10 +19,10 @@ Config.RessTrigger = 'qrp-ambulance:client:revive:player'
 Config.UseBasicneeds = false
 
 Config.NoClipCommand = 'noclip'
-Config.ReportCommand = 'report'
+Config.ReportCommand = 'call'
 
 Config.EnableReportStaffCommand = false
-Config.ReportStaff = 'reports'
+Config.ReportStaff = 'calls'
 
 Config.ReportCooldown = 5
 
