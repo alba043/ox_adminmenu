@@ -1,7 +1,7 @@
 fx_version 'adamant'
 game 'gta5'
 lua54 'yes'
-author 'Exstugent'
+author '777'
 
 shared_scripts {
     '@ox_lib/init.lua',
