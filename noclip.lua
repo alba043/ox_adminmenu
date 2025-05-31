@@ -1,3 +1,6 @@
+-----------------{Made By Alba}-----------------------
+
+
 local speed = 0.1
 local up_down_speed = 0.1
 
@@ -189,3 +192,4 @@ RegisterCommand(Config.NoClipCommand, function()
         end
     end)
 end)
+-----------------{Made By Alba}-----------------------

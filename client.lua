@@ -1,3 +1,4 @@
+-----------------{Made By Alba}-----------------------
 RegisterCommand(Config.MenuCommand, function()
     lib.callback('checkgroup', false, function(staff, tipo)
         if staff then
@@ -231,3 +232,4 @@ RegisterNetEvent('svg:admin:notify', function(reason, type, title)
         Config.Notify(reason, type)
     end
 end)
+-----------------{Made By Alba}-----------------------

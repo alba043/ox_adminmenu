@@ -1,3 +1,4 @@
+-----------------{Made By Alba}-----------------------
 Config = {}
 
 Config.MenuCommand = 'sm'
@@ -106,3 +107,4 @@ Lang = {
     reason = 'Reden',
     not_in_game = 'Speler niet in de stad',
 }
+-----------------{Made By Alba}-----------------------

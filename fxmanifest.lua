@@ -1,7 +1,9 @@
+-----------------{Made By Alba}-----------------------
+
 fx_version 'adamant'
 game 'gta5'
 lua54 'yes'
-author '777'
+author 'Alba'
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -18,4 +20,4 @@ server_scripts {
     'configSV.lua',
     'server.lua',
 }
-
+-----------------{Made By Alba}-----------------------
