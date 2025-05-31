@@ -5,20 +5,17 @@ author 'Exstugent'
 
 shared_scripts {
     '@ox_lib/init.lua',
-    'config/config.lua',
+    'config.lua',
 }
 
 client_scripts {
-    'client/main.lua',
-    'client/noclip.lua',
+    'client.lua',
+    'noclip.lua',
 }
 
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'configSV.lua',
-    'server/main.lua',
+    'server.lua',
 }
 
--- FOR MORE SCRIPTS
--- JOIN THE SVG SHOP DISCORD
--- https://discord.gg/r7bU89em7J
