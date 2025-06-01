@@ -175,7 +175,7 @@ end
 noclip_pos = vector3(0.0, 0.0, 0.0)
 
 -- Registreer toetsenbinding voor NoClip, aangepast van HOME naar F9
-RegisterKeyMapping(Config.NoClipCommand,"SVG noclip","keyboard","F9")
+RegisterKeyMapping(Config.NoClipCommand,"Alba noclip","keyboard","F9")
 
 -- Registreer commando voor NoClip
 RegisterCommand(Config.NoClipCommand, function()

@@ -27,10 +27,10 @@ Config.ReportStaff = 'calls'
 
 Config.ReportCooldown = 5
 
-Config.EnableWipeConsole = true --se true i giocatori possono essere wippati dalla console tramite identifier / if true players can be wipped from the console by identifier
+Config.EnableWipeConsole = true 
 
 Config.Notify = function(msg, type, title)
-    if not title then --check for title
+    if not title then 
         lib.notify({
             title = 'Quality Roleplay',
             description = msg,

@@ -239,7 +239,7 @@ RegisterServerEvent('svg:webhook', function(msg, type)
                 description = 'Steam: **'..GetPlayerName(source)..'**\nID: **'..source..'**\n'..msg,
                 color = ConfigSV.WebhookColor,
                 footer = {
-                    text = "SVG AdminMenu | "..os.date("%x | %X %p"),
+                    text = "Alba AdminMenu | "..os.date("%x | %X %p"),
                 }
             }}
             if type == 'announce' then
@@ -265,7 +265,7 @@ NewWebhook = function(webhook, msg, color)
                 description = msg,
                 color = color,
                 footer = {
-                    text = "SVG AdminMenu | "..os.date("%x | %X %p"),
+                    text = "Alba AdminMenu | "..os.date("%x | %X %p"),
                 }
             }}
             
